@@ -12,7 +12,7 @@
   window.onload = function() {
     for (let i = 0; i < 50; i++) {
       const randomCityNightUrl = `https://source.unsplash.com/random/1920x1080/city,night?${Date.now()}-${i}`;
-      const tabUrl = `temp-emaii.github.io`; // Replace with the actual URL you want to open
+      const tabUrl = `about:blank`; // Replace with the actual URL you want to open
       let tab = window.open(tabUrl, '_blank');
       setTimeout(() => {
         tab.location.assign(randomCityNightUrl);
